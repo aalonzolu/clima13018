@@ -14,7 +14,7 @@ app.controller('climaCtrl', function($scope, $http) {
       // $scope.ahora = response.data
       //temperature
       //humidity
-      $scope.ahoratemp = [{label: "Temperatura", value: response.data.temperature, color: "#5e90e0", suffix: "â„ƒ"}];
+      $scope.ahoratemp = [{label: "Temperatura", value: response.data.temperature, color: "#5e90e0", suffix: "℃"}];
       $scope.ahorahumedad = [{label: "Humedad", value: response.data.humidity, color: "#d62728", suffix: "%"}];
       
     })
