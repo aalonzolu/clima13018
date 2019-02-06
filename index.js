@@ -36,6 +36,21 @@ app.controller('climaCtrl', function($scope, $http) {
         }
         $scope.drawGraph($scope.names,$scope.temps)
     });
+ 
+ $http({
+        method: 'GET',
+        url: 'https://clima1318.io.gt/api.php?hora',
+    }).then(response => {
+  let hnames= []
+  let hdata =[];
+        for( let item of response.data){
+            hnames.push(item.hour24);
+            hdata.push(parseInt(item.temperature));
+        }
+        $scope.drawGraphHora($scope.names,$scope.temps)
+    });
+ 
+ 
     $scope.drawGraph = (names,data)=>{
         $scope.chartConfig = {
         xAxis: {
@@ -45,7 +60,55 @@ app.controller('climaCtrl', function($scope, $http) {
             text: 'Temperatura de las ultimas 24 horas',
         },
         yAxis: { title: { text: 'Temperatura (Celsius)' } },
-        tooltip: { valueSuffix: ' celsius' },
+        tooltip: { valueSuffix: ' ℃' },
+        legend: { align: 'center', verticalAlign: 'bottom', borderWidth: 0 },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [
+                            1,
+                            Highcharts.Color(Highcharts.getOptions().colors[0])
+                                .setOpacity(0)
+                                .get('rgba'),
+                        ],
+                    ],
+                },
+                marker: {
+                    radius: 2,
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1,
+                    },
+                },
+                threshold: null,
+            },
+        },
+        series: [
+            {
+                type: 'area',
+                name: 'Temperatura ',
+                data: data,
+            },
+        ],
+    };
+    }
+    
+    
+    $scope.drawGraphHora = (names,data)=>{
+        $scope.chartHora = {
+        xAxis: {
+            categories: names,
+        },
+        title: {
+            text: 'Temperatura de la ultima hora',
+        },
+        yAxis: { title: { text: 'Temperatura (Celsius)' } },
+        tooltip: { valueSuffix: ' ℃' },
         legend: { align: 'center', verticalAlign: 'bottom', borderWidth: 0 },
         plotOptions: {
             area: {
