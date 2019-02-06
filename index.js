@@ -47,7 +47,7 @@ app.controller('climaCtrl', function($scope, $http) {
             categories: names,
         },
         title: {
-            text: 'Temperatura de las ultimas 24 horas',
+            text: 'Temperatura del día',
         },
         yAxis: { title: { text: 'Temperatura (Celsius)' } },
         tooltip: { valueSuffix: ' ℃' },
@@ -97,8 +97,8 @@ app.controller('climaCtrl', function($scope, $http) {
         title: {
             text: 'Indice de humedad del día',
         },
-        yAxis: { title: { text: 'Temperatura (Celsius)' } },
-        tooltip: { valueSuffix: ' ℃' },
+        yAxis: { title: { text: '%' } },
+        tooltip: { valueSuffix: ' %' },
         legend: { align: 'center', verticalAlign: 'bottom', borderWidth: 0 },
         plotOptions: {
             area: {
@@ -129,7 +129,7 @@ app.controller('climaCtrl', function($scope, $http) {
         series: [
             {
                 type: 'area',
-                name: 'Temperatura ',
+                name: 'Humedad ',
                 data: data,
             },
         ],
