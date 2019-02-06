@@ -47,7 +47,7 @@ app.controller('climaCtrl', function($scope, $http) {
             hnames.push(item.hour24);
             hdata.push(parseInt(item.temperature));
         }
-        $scope.drawGraphHora($scope.names,$scope.temps)
+        $scope.drawGraphHora(hnames,hdata)
     });
  
  
