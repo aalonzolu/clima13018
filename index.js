@@ -26,6 +26,7 @@ app.controller('climaCtrl', function($scope, $http) {
  this.$scope = $scope;
     $scope.names = [];
     $scope.temps = [];
+    $scope.hums = [];
     $http({
         method: 'GET',
         url: 'https://clima1318.io.gt/api.php?hoy',
@@ -33,21 +34,10 @@ app.controller('climaCtrl', function($scope, $http) {
         for( let item of response.data){
             $scope.names.push(item.hour24);
             $scope.temps.push(parseInt(item.temperature));
+            $scope.hums.push(parseInt(item.humidity));
         }
         $scope.drawGraph($scope.names,$scope.temps)
-    });
- 
- $http({
-        method: 'GET',
-        url: 'https://clima1318.io.gt/api.php?hora',
-    }).then(response => {
-  let hnames= []
-  let hdata =[];
-        for( let item of response.data){
-            hnames.push(item.hour24);
-            hdata.push(parseInt(item.temperature));
-        }
-        $scope.drawGraphHora(hnames,hdata)
+        $scope.drawGraphHums($scope.names,$scope.hums)
     });
  
  
@@ -99,13 +89,13 @@ app.controller('climaCtrl', function($scope, $http) {
     }
     
     
-    $scope.drawGraphHora = (names,data)=>{
-        $scope.chartHora = {
+    $scope.drawGraphHums = (names,data)=>{
+        $scope.chartHum = {
         xAxis: {
             categories: names,
         },
         title: {
-            text: 'Temperatura de la ultima hora',
+            text: 'Indice de humedad del día',
         },
         yAxis: { title: { text: 'Temperatura (Celsius)' } },
         tooltip: { valueSuffix: ' ℃' },
